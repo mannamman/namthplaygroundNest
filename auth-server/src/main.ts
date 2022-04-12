@@ -54,15 +54,18 @@ async function bootstrap() {
   });
   // swagger
   const config = new DocumentBuilder()
-    .setTitle('NamthPlayGround API Document!')
-    .setDescription('The NamthPlayGround API description')
+    .setTitle('NamthPlayGround Nest')
+    .setDescription('The NamthPlayGround Nest API description')
     .setVersion('1.0')
     .addTag('Nest')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(8080, '0.0.0.0', () => {
+  const host = app.get('ConfigService').get('app.NEST_HOST');
+  const port = app.get('ConfigService').get('app.NEST_PORT');
+
+  await app.listen(port, host, () => {
     // 앱이 초기화를 끝내고 응답을 받을 준비가 되면 마스터에게 신호 전달
     process.send('ready');
     console.log(`application is listening on port 8080...`);
