@@ -1,0 +1,19 @@
+# path : /usr/lib/systemd/system/yfinServer.service
+# reload : systemctl daemon-reload
+# enable : systemctl enable servicename
+
+[Unit]
+Description=get real stock simple server. python-flask
+After=syslog.target network.target
+
+[Service]
+Type=idle
+User=ubuntu
+# 아직은 미정이여서 아래 경로 수정 해야함
+WorkingDirectory=/home/ubuntu/namthplaygroundAuthServerNode/yfin-server
+ExecStart=/home/ubuntu/namthplaygroundAuthServerNode/yfin-server/venv/bin/python3 -m gunicorn --bind 127.0.0.1:3020 --workers 1 --threads 2 --timeout 30 main:app
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
