@@ -59,6 +59,5 @@ GRANT 권한 ON 데이터베이스.테이블 TO '아이디'@'호스트' IDENTIFI
 | email        | varchar(50)                   | NO   |     | NULL    |                |
 | password     | varchar(60)                   | NO   |     | NULL    |                |
 | role         | enum('admin','editor','user') | YES  |     | user    |                |
-| refreshToken | varchar(60)                   | YES  |     | NULL    |                |
 +--------------+-------------------------------+------+-----+---------+----------------+
 */
