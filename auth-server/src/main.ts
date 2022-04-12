@@ -9,6 +9,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import fastifyCookie from 'fastify-cookie';
 import { AppModule } from './app.module';
 import { NextFunction, Request, Response } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   let isDisableKeepAlive = false;
@@ -62,8 +63,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
-  const host = app.get('ConfigService').get('app.NEST_HOST');
-  const port = app.get('ConfigService').get('app.NEST_PORT');
+  const nestConfig = app.get<ConfigService>(ConfigService);
+  const host = nestConfig.get('NEST_HOST');
+  const port = nestConfig.get('NEST_PORT');
 
   await app.listen(port, host, () => {
     // 앱이 초기화를 끝내고 응답을 받을 준비가 되면 마스터에게 신호 전달

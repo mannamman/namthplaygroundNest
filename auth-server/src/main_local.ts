@@ -8,6 +8,7 @@ import { join } from 'path';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import fastifyCookie from 'fastify-cookie';
 import { AppModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -51,15 +52,20 @@ async function bootstrap() {
     templates: join(__dirname, '..', 'views'),
   });
   // swagger
-  const config = new DocumentBuilder()
-    .setTitle('NamthPlayGround API Document!')
-    .setDescription('The NamthPlayGround API description')
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('NamthPlayGround Nest')
+    .setDescription('The NamthPlayGround Nest API description')
     .setVersion('1.0')
     .addTag('Nest')
     .build();
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(8080, '0.0.0.0');
+  const nestConfig = app.get<ConfigService>(ConfigService);
+  const host = nestConfig.get('NEST_HOST');
+  const port = nestConfig.get('NEST_PORT');
+
+  // 외부 ip는 ec2에서 정의한 규칙으로 필터링
+  await app.listen(port, host);
 }
 bootstrap();
