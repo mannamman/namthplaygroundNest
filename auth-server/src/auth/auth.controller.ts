@@ -6,17 +6,18 @@ import {
   HttpCode,
   Response,
   Request,
+  Body,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { LocalAuthGuard } from './local-guard/local-auth.guard';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
-import { SignInUserDto } from 'src/users/dto/user.dto';
+import { SignInUserDto, SignUpResDto, SignUpReqDto } from 'src/users/dto/user.dto';
 import { reqWithUser } from 'src/users/interfaces/reqUser.interface';
 import { JwtAuthGuard } from './jwt-guard/jwt-auth.guard';
 
-@ApiTags('public')
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -45,6 +46,13 @@ export class AuthController {
     response.setCookie('accessCookie', access_token, accessOption);
     response.redirect('https://www.namthplayground.com');
     return response;
+  }
+
+  @Post('signup')
+  @HttpCode(201)
+  @ApiResponse({ type: SignUpResDto })
+  singup(@Body() createUserDto: SignUpReqDto): Promise<SignUpResDto> {
+    return this.authService.signup(createUserDto);
   }
 
   @Get('signout')
