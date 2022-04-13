@@ -13,6 +13,7 @@ export class UsersService {
   ) {}
 
   async create(user: UserEntity): Promise<SignUpResDto> {
+    return { ok: false, error: 'not ready' };
     const exsits = await this.findOne(user.email);
     if (exsits) {
       return { ok: false, error: 'already exsits' };
