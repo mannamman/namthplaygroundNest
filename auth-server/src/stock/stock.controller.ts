@@ -34,9 +34,9 @@ export class StockController {
     const [range, day, close_prices, close_dates] =
       await this.stockService.getDayStatic(info);
     return {
-      total_cnt: range.rangePositiveCnt,
-      positive_cnt: range.rangeNegativeCnt,
-      negative_cnt: range.rangeTotalCnt,
+      total_cnt: range.rangeTotalCnt,
+      positive_cnt: range.rangePositiveCnt,
+      negative_cnt: range.rangeNegativeCnt,
       day_statistics: JSON.stringify(day),
       close_prices: close_prices,
       close_dates: close_dates,
