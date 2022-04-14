@@ -43,10 +43,6 @@ async function bootstrap() {
   // fastify cookie
   app.register(fastifyCookie);
   // html
-  app.useStaticAssets({
-    root: join(__dirname, '..', 'public'),
-    prefix: '/public/',
-  });
   app.setViewEngine({
     engine: {
       handlebars: require('handlebars'),
