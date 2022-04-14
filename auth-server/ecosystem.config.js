@@ -9,6 +9,7 @@ module.exports = {
       script: './dist/main.js', // PM2를 실행시켜줄 스크립트 파일의 경로
       instances: 2, // 설치될 앱 인스턴스가 갯수
       autorestart: true, // 앱 크러쉬 등으로 인해 앱이 종료될 때 재시작할지 여부 (default: true)
+      max_restarts: 2, // 일정 회수만큼 재시도 실패시, 재시작 포기
       watch: false, // 폴더 내의 파일에 변경이 있을때, 앱이 리로딩 여부
       wait_ready: true,
       listen_timeout: 50000, // time in ms before forcing a reload if app not listening
