@@ -69,7 +69,7 @@ export class StockService {
       subject: subject,
       $and: [{ createdAt: { $gte: start } }, { createdAt: { $lte: end } }],
     };
-    const cur_result = await this.stockModel.find(query).exec();
+    const cur_result = await this.stockModel.find(query, { uuid: 0 }).exec();
     const [rangeResult, DayResult] = this._getDayStatic(cur_result);
     const [close_prices, close_dates] = await this._getRealStock(
       info.start,
