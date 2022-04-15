@@ -41,7 +41,7 @@ export class StockController {
       close_prices: close_prices,
       close_dates: close_dates,
       subejct: info.subject,
-      result: queryResult,
+      result: JSON.stringify(queryResult),
     };
   }
 
