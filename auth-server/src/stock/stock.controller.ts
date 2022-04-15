@@ -19,9 +19,6 @@ import { Roles } from 'src/auth/roles-guard/roles.decorator';
 import { StockDayReqDto, StockDayResDto } from './dto/stock.dto';
 
 @ApiTags('stock')
-@UseGuards(RolesGuard)
-@UseGuards(JwtAuthGuard)
-@Roles('user')
 @Controller('stock')
 export class StockController {
   constructor(private stockService: StockService) {}
@@ -45,8 +42,12 @@ export class StockController {
   }
 
   @Get('test')
+  @Render('urlCard.hbs')
   async test() {
-    return await this.stockService.queryTest();
+    const result = await this.stockService.queryTest();
+    return {
+      result: JSON.stringify(result),
+    };
   }
 
   @Get('index')

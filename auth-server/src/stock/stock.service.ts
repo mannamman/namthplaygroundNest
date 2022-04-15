@@ -41,14 +41,14 @@ export class StockService {
   }
 
   async queryTest(): Promise<Stock[]> {
-    const start = new Date('2022-04-11');
+    const start = new Date('2022-04-13');
     const end = new Date('2022-04-15');
     const subject = 'google';
     const query = {
       subject: subject,
       $and: [{ createdAt: { $gte: start } }, { createdAt: { $lte: end } }],
     };
-    return await this.stockModel.find(query).exec();
+    return await this.stockModel.find(query, { uuid: 0 }).exec();
   }
 
   async getDayStatic(

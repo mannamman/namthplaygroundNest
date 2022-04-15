@@ -1,0 +1,57 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <div id='container'></div>
+        <div id="log">
+            <script>
+                const makeBox = (res, index) => {
+                    const createdAt = res.createdAt;
+                    const subject = res.subject;
+                    const sentiments = res.sentiment;
+                    let container = `
+                        <div id=urlcard${index}>
+                            <h2>${createdAt}</h2>
+                        `;
+                    for(const sentiment of sentiments) {
+                        const liContext = `
+                        <ul>
+                            <li style="font-weight: bold;">
+                                <a href=${sentiment.url} target="_blank">${sentiment.sentence}</a>
+                            </li>
+                            <li>positive: ${sentiment.positive}</li>
+                            <li>negative: ${sentiment.negative}</li>
+                            <li>neutral: ${sentiment.neutral}</li>
+                        </ul>
+                        `
+                        container += liContext;
+                    }
+                    container += '</div></div>';
+                    return container;
+                }
+                const res = '{{result}}';
+                const regexRes = res.replace(/&quot;/g,'"');
+                const resJson = JSON.parse(regexRes);
+
+                const cont = document.getElementById('container');
+                const mainHeader = document.createElement('H1');
+                mainHeader.innerHTML = resJson[0].subject;
+                cont.appendChild(mainHeader);
+                const ul = document.createElement('ul');
+                ul.setAttribute('style', 'padding: 0; margin: 0;');
+                ul.setAttribute('id', 'theList');
+
+                for(let i=0; i<resJson.length; i++) {
+                    const li = document.createElement('li');
+                    const log = makeBox(resJson[i], i);
+                    console.log(log);
+                    li.innerHTML = log;
+                    li.setAttribute('style', 'display: block;');
+                    ul.appendChild(li);
+                }
+                cont.appendChild(ul);
+            </script>
+        </div>
+    </body>
+</html>
+
