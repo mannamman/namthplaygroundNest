@@ -19,6 +19,9 @@ import { Roles } from 'src/auth/roles-guard/roles.decorator';
 import { StockDayReqDto, StockDayResDto } from './dto/stock.dto';
 
 @ApiTags('stock')
+@UseGuards(JwtAuthGuard)
+@UseGuards(RolesGuard)
+@Roles('user')
 @Controller('stock')
 export class StockController {
   constructor(private stockService: StockService) {}
@@ -28,7 +31,7 @@ export class StockController {
   @Render('dayStatistics.hbs')
   @ApiResponse({ type: StockDayResDto })
   async dayStatistics(@Body() info: StockDayReqDto): Promise<StockDayResDto> {
-    const [range, day, close_prices, close_dates] =
+    const [range, day, close_prices, close_dates, queryResult] =
       await this.stockService.getDayStatic(info);
     return {
       total_cnt: range.rangeTotalCnt,
@@ -38,6 +41,7 @@ export class StockController {
       close_prices: close_prices,
       close_dates: close_dates,
       subejct: info.subject,
+      result: queryResult,
     };
   }
 

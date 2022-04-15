@@ -59,6 +59,7 @@ export class StockService {
       StockDayStaticDayResult[],
       Array<number>,
       Array<string>,
+      Array<Stock>,
     ]
   > {
     const start = new Date(info.start);
@@ -75,7 +76,7 @@ export class StockService {
       info.end,
       subject,
     );
-    return [rangeResult, DayResult, close_prices, close_dates];
+    return [rangeResult, DayResult, close_prices, close_dates, cur_result];
   }
 
   private _getDayStatic(
