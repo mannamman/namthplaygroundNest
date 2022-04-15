@@ -21,11 +21,11 @@ import { StockDayReqDto, StockDayResDto } from './dto/stock.dto';
 @ApiTags('stock')
 @UseGuards(RolesGuard)
 @UseGuards(JwtAuthGuard)
+@Roles('user')
 @Controller('stock')
 export class StockController {
   constructor(private stockService: StockService) {}
 
-  @Roles('user')
   @Post('day')
   @HttpCode(200)
   @Render('dayStatistics.hbs')
@@ -44,7 +44,11 @@ export class StockController {
     };
   }
 
-  @Roles('user')
+  @Get('test')
+  async test() {
+    return await this.stockService.queryTest();
+  }
+
   @Get('index')
   @HttpCode(200)
   @Render('stockIndex.hbs')

@@ -41,8 +41,8 @@ export class StockService {
   }
 
   async queryTest(): Promise<Stock[]> {
-    const start = new Date('2022-03-22');
-    const end = new Date('2022-03-25');
+    const start = new Date('2022-04-11');
+    const end = new Date('2022-04-15');
     const subject = 'google';
     const query = {
       subject: subject,
