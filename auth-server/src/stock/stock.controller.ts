@@ -9,6 +9,7 @@ import {
   Response,
   Request,
   Param,
+  MethodNotAllowedException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-guard/jwt-auth.guard';
@@ -43,6 +44,12 @@ export class StockController {
       subejct: info.subject,
       result: JSON.stringify(queryResult),
     };
+  }
+
+  @Get('day')
+  @HttpCode(405)
+  dayNotAllowed() {
+    throw new MethodNotAllowedException();
   }
 
   @Get('test')
