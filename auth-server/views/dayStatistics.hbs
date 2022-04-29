@@ -205,7 +205,7 @@
     const resJson = JSON.parse(regexRes);
     const cont = document.getElementById('news_container');
     const mainHeader = document.createElement('H1');
-    mainHeader.innerHTML = resJson[0].subject;
+    mainHeader.innerHTML = `${resJson[0].subject.toUpperCase()} News Links`;
     cont.appendChild(mainHeader);
     const ul = document.createElement('ul');
     ul.setAttribute('style', 'padding: 0; margin: 0;');
