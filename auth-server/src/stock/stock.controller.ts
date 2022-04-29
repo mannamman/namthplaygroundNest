@@ -20,14 +20,14 @@ import { Roles } from 'src/auth/roles-guard/roles.decorator';
 import { StockDayReqDto, StockDayResDto } from './dto/stock.dto';
 
 @ApiTags('stock')
-@UseGuards(JwtAuthGuard)
-@UseGuards(RolesGuard)
-@Roles('user')
+// @UseGuards(JwtAuthGuard)
+// @UseGuards(RolesGuard)
 @Controller('stock')
 export class StockController {
   constructor(private stockService: StockService) {}
 
   @Post('day')
+  // @Roles('user')
   @HttpCode(200)
   @Render('dayStatistics.hbs')
   @ApiResponse({ type: StockDayResDto })
@@ -47,24 +47,33 @@ export class StockController {
   }
 
   @Get('day')
+  // @Roles('user')
   @HttpCode(405)
   dayNotAllowed() {
     throw new MethodNotAllowedException();
   }
 
-  @Get('test')
-  @Render('urlCard.hbs')
-  async test() {
-    const result = await this.stockService.queryTest();
-    return {
-      result: JSON.stringify(result),
-    };
-  }
-
   @Get('index')
+  // @Roles('user')
   @HttpCode(200)
   @Render('stockIndex.hbs')
   stockIndex() {
     return;
+  }
+
+  @Get('admin')
+  // @Roles('admin')
+  @Render('adminIndex.hbs')
+  adminIndex() {
+    return;
+  }
+
+  @Get('admin/subject')
+  @Render('adminSubject.hbs')
+  async adminSubject() {
+    const result = await this.stockService.getSubjects();
+    return {
+      subjects: result,
+    };
   }
 }

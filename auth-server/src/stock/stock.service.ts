@@ -139,4 +139,9 @@ export class StockService {
     const close_dates = res['close_dates'];
     return [close_prices, close_dates];
   }
+
+  async getSubjects(): Promise<string[]> {
+    const result = await this.stockModel.distinct('subject');
+    return result;
+  }
 }
