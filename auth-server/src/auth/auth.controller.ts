@@ -56,13 +56,12 @@ export class AuthController {
   }
 
   @Get('signout')
+  @HttpCode(302)
   @UseGuards(JwtAuthGuard)
-  async logout(
-    @Request() req,
-    @Response({ passthrough: true }) response: FastifyReply,
-  ) {
+  async logout(@Response({ passthrough: true }) response: FastifyReply) {
     const { accessOption } = this.authService.getCookiesForLogOut();
     response.cookie('accessCookie', '', accessOption);
-    return response.send('ok');
+    response.redirect('https://www.namthplayground.com');
+    return response;
   }
 }
