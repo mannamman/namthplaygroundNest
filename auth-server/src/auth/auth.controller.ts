@@ -60,7 +60,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   async logout(@Response({ passthrough: true }) response: FastifyReply) {
     const { accessOption } = this.authService.getCookiesForLogOut();
-    response.cookie('accessCookie', '', accessOption);
+    response.setCookie('accessCookie', '', accessOption);
     response.redirect('https://www.namthplayground.com');
     return response;
   }
