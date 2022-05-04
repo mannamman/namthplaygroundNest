@@ -60,20 +60,4 @@ export class StockController {
   stockIndex() {
     return;
   }
-
-  @Get('admin')
-  // @Roles('admin')
-  @Render('adminIndex.hbs')
-  adminIndex() {
-    return;
-  }
-
-  @Get('admin/subject')
-  @Render('adminSubject.hbs')
-  async adminSubject() {
-    const result = await this.stockService.getSubjects();
-    return {
-      subjects: result,
-    };
-  }
 }
