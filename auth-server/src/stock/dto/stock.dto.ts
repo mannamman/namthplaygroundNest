@@ -69,4 +69,12 @@ export class StockDayResDto {
   })
   close_dates: Array<string>;
   subejct: string;
+  @ApiProperty({
+    type: [String],
+    nullable: false,
+    description: 'total query result',
+    example:
+      "[{_id: 'docid', createdAt: 'yyyy-mm-dd hh:mm:ss', subject: 'google', sentiment: [ {positive: 0.5,negative: 0.2,netural: 0.3,sentence: 'headline',url: 'https://...',},],},],",
+  })
+  result: string;
 }

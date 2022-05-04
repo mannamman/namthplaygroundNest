@@ -41,14 +41,14 @@ export class StockService {
   }
 
   async queryTest(): Promise<Stock[]> {
-    const start = new Date('2022-03-22');
-    const end = new Date('2022-03-25');
+    const start = new Date('2022-04-13');
+    const end = new Date('2022-04-15');
     const subject = 'google';
     const query = {
       subject: subject,
       $and: [{ createdAt: { $gte: start } }, { createdAt: { $lte: end } }],
     };
-    return await this.stockModel.find(query).exec();
+    return await this.stockModel.find(query, { uuid: 0 }).exec();
   }
 
   async getDayStatic(
@@ -59,6 +59,7 @@ export class StockService {
       StockDayStaticDayResult[],
       Array<number>,
       Array<string>,
+      Array<Stock>,
     ]
   > {
     const start = new Date(info.start);
@@ -68,14 +69,14 @@ export class StockService {
       subject: subject,
       $and: [{ createdAt: { $gte: start } }, { createdAt: { $lte: end } }],
     };
-    const cur_result = await this.stockModel.find(query).exec();
+    const cur_result = await this.stockModel.find(query, { uuid: 0 }).exec();
     const [rangeResult, DayResult] = this._getDayStatic(cur_result);
     const [close_prices, close_dates] = await this._getRealStock(
       info.start,
       info.end,
       subject,
     );
-    return [rangeResult, DayResult, close_prices, close_dates];
+    return [rangeResult, DayResult, close_prices, close_dates, cur_result];
   }
 
   private _getDayStatic(
@@ -137,5 +138,10 @@ export class StockService {
     const close_prices = res['close_prices'];
     const close_dates = res['close_dates'];
     return [close_prices, close_dates];
+  }
+
+  async getSubjects(): Promise<string[]> {
+    const result = await this.stockModel.distinct('subject');
+    return result;
   }
 }

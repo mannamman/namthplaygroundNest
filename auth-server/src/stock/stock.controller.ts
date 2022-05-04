@@ -9,6 +9,7 @@ import {
   Response,
   Request,
   Param,
+  MethodNotAllowedException,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-guard/jwt-auth.guard';
@@ -19,19 +20,19 @@ import { Roles } from 'src/auth/roles-guard/roles.decorator';
 import { StockDayReqDto, StockDayResDto } from './dto/stock.dto';
 
 @ApiTags('stock')
-@UseGuards(RolesGuard)
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
+// @UseGuards(RolesGuard)
 @Controller('stock')
 export class StockController {
   constructor(private stockService: StockService) {}
 
-  @Roles('user')
   @Post('day')
+  // @Roles('user')
   @HttpCode(200)
   @Render('dayStatistics.hbs')
   @ApiResponse({ type: StockDayResDto })
   async dayStatistics(@Body() info: StockDayReqDto): Promise<StockDayResDto> {
-    const [range, day, close_prices, close_dates] =
+    const [range, day, close_prices, close_dates, queryResult] =
       await this.stockService.getDayStatic(info);
     return {
       total_cnt: range.rangeTotalCnt,
@@ -41,11 +42,19 @@ export class StockController {
       close_prices: close_prices,
       close_dates: close_dates,
       subejct: info.subject,
+      result: JSON.stringify(queryResult),
     };
   }
 
-  @Roles('user')
+  @Get('day')
+  // @Roles('user')
+  @HttpCode(405)
+  dayNotAllowed() {
+    throw new MethodNotAllowedException();
+  }
+
   @Get('index')
+  // @Roles('user')
   @HttpCode(200)
   @Render('stockIndex.hbs')
   stockIndex() {

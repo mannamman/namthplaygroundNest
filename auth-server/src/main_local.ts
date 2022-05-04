@@ -66,6 +66,8 @@ async function bootstrap() {
   const port = nestConfig.get('NEST_PORT');
 
   // 외부 ip는 ec2에서 정의한 규칙으로 필터링
-  await app.listen(port, host);
+  await app.listen(port, host, () => {
+    console.log('server start');
+  });
 }
 bootstrap();
