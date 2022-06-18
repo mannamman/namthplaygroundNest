@@ -10,14 +10,6 @@ export class StockDayReqDto {
   })
   start: string;
   @ApiProperty({
-    example: '2022-03-20',
-    nullable: false,
-    maxLength: 10,
-    format: 'yyyy-mm-dd',
-    description: 'search end date',
-  })
-  end: string;
-  @ApiProperty({
     example: 'google',
     nullable: false,
     maxLength: 50,

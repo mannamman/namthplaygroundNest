@@ -63,7 +63,9 @@ export class StockService {
     ]
   > {
     const start = new Date(info.start);
-    const end = new Date(info.end);
+    const end = new Date(info.start);
+    end.setDate(end.getDate() + 31);
+    const end_str = end.toISOString().slice(0, 10).replace(/-/g, '');
     const subject = info.subject;
     const query = {
       subject: subject,
@@ -73,7 +75,7 @@ export class StockService {
     const [rangeResult, DayResult] = this._getDayStatic(cur_result);
     const [close_prices, close_dates] = await this._getRealStock(
       info.start,
-      info.end,
+      end_str,
       subject,
     );
     return [rangeResult, DayResult, close_prices, close_dates, cur_result];
