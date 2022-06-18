@@ -6,7 +6,7 @@ module.exports = {
   apps: [
     {
       name: 'NamthPlayGround SERVER', // 애플리케이션 이름
-      script: './dist/main.js', // PM2를 실행시켜줄 스크립트 파일의 경로
+      script: './dist/src/main.js', // PM2를 실행시켜줄 스크립트 파일의 경로
       instances: 2, // 설치될 앱 인스턴스가 갯수
       autorestart: true, // 앱 크러쉬 등으로 인해 앱이 종료될 때 재시작할지 여부 (default: true)
       max_restarts: 2, // 일정 회수만큼 재시도 실패시, 재시작 포기
