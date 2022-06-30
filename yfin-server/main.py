@@ -4,6 +4,13 @@ from yfin_module import YFin
 from log_module import Logger
 import traceback
 import json
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+host = os.getenv("FLASK_HOST")
+port = int(os.getenv("FLASK_PORT"))
 
 app = Flask(__name__)
 
@@ -31,4 +38,6 @@ def fun():
         return Response(response=json.dumps({'error':error}), status=400)
 
 if(__name__ == "__main__"):
-    app.run(host="127.0.0.1", port=3020, debug=False)
+    logger.boot_log()
+    app.run(host=host, port=port, debug=False)
+    logger.term_log()
