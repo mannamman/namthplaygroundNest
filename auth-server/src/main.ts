@@ -10,6 +10,7 @@ import fastifyCookie from 'fastify-cookie';
 import { AppModule } from './app.module';
 import { NextFunction, Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { WinstonLoggerService } from './loggers/winston.logger';
 
 async function bootstrap() {
   let isDisableKeepAlive = false;
@@ -17,6 +18,9 @@ async function bootstrap() {
     AppModule,
     // fastify
     new FastifyAdapter(),
+    {
+      logger: new WinstonLoggerService(),
+    },
   );
   // helmet true
   await app.register(fastifyHelmet, {
@@ -66,7 +70,7 @@ async function bootstrap() {
   await app.listen(port, host, () => {
     // 앱이 초기화를 끝내고 응답을 받을 준비가 되면 마스터에게 신호 전달
     process.send('ready');
-    console.log(`application is listening on port 8080...`);
+    console.log(`${process.pid} application is listening on port 8080...`);
   });
   // 타임아웃으로 서비스가 중단되는 문제를 해결
   app.use((req: Request, res: Response, next: NextFunction) => {
@@ -81,7 +85,7 @@ async function bootstrap() {
     // SIGINT 신호를 받으면 flag를 변경하여 더 이상 요청을 무시
     isDisableKeepAlive = true;
     await app.close();
-    console.log('server closed!');
+    console.log(`${process.pid} server closed!`);
     process.exit();
   });
 }

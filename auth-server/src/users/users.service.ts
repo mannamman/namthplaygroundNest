@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UserEntity } from 'src/mysql/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,10 +10,11 @@ export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
+    private readonly logger: Logger,
   ) {}
 
   async create(user: UserEntity): Promise<SignUpResDto> {
-    return { ok: false, error: 'not ready' };
+    // return { ok: false, error: 'not ready' };
     const exsits = await this.findOne(user.email);
     if (exsits) {
       return { ok: false, error: 'already exsits' };
@@ -23,8 +24,11 @@ export class UsersService {
       await this.userRepository.insert(curUser);
       return { ok: true, error: '' };
     } catch (e) {
-      console.log(e);
-      return { ok: false, error: 'someting error' };
+      if (e instanceof Error) {
+        this.logger.error(e.message);
+        return { ok: false, error: e.message };
+      }
+      return { ok: false, error: 'something error' };
     }
   }
 

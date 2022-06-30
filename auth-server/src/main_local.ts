@@ -9,12 +9,16 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import fastifyCookie from 'fastify-cookie';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
+import { WinstonLoggerService } from './loggers/winston.logger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     // fastify
     new FastifyAdapter(),
+    {
+      logger: new WinstonLoggerService(),
+    },
   );
   // helmet true
   await app.register(fastifyHelmet, {
@@ -65,6 +69,7 @@ async function bootstrap() {
   const host = nestConfig.get('NEST_HOST');
   const port = nestConfig.get('NEST_PORT');
 
+  // app.useLogger(app.get(TestLogger));
   // 외부 ip는 ec2에서 정의한 규칙으로 필터링
   await app.listen(port, host, () => {
     console.log('server start');

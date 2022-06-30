@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger } from '@nestjs/common';
 import { StockService } from './stock.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { StockSchema } from 'src/mongo/schemas/stock.schema';
@@ -14,7 +14,7 @@ import { Stock } from 'src/mongo/schemas/stock.schema';
     ),
   ],
   controllers: [StockController, StockAdminController],
-  providers: [StockService],
+  providers: [StockService, Logger],
   exports: [StockService],
 })
 export class StockModule {}

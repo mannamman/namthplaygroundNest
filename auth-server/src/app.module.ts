@@ -8,12 +8,14 @@ import { UsersModule } from './users/users.module';
 import { MySqlModule } from './mysql/mysql.module';
 import { MongoModule } from './mongo/mongo.module';
 import { StockModule } from './stock/stock.module';
-
+import { WinstonModule } from 'nest-winston';
+// import * as winston from 'winston';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    WinstonModule.forRoot({}),
     AuthModule,
     UsersModule,
     MySqlModule,
