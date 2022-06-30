@@ -12,7 +12,7 @@ class Logger:
         self.dt_lambda = (lambda self, record, datefmt=None: datetime.datetime.fromtimestamp(record.created, datetime.timezone.utc).astimezone().isoformat(sep="T",timespec="seconds"))
         self.log_format = '{"level": "%(levelname)s", "message": "%(message)s", "timestamp": "%(asctime)s", "ms": ""}'
         self.port = int(os.getenv("FLASK_PORT"))
-        self.host = int(os.getenv("FLASK_HOST"))
+        self.host = os.getenv("FLASK_HOST")
 
     def _path(func):
         @functools.wraps(func)
