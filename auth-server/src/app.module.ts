@@ -1,5 +1,6 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
+import { ReqLoggerMiddleware } from './middlewares/req.log.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { PublicController } from './public.controller';
 import { AppService } from './app.service';
@@ -28,5 +29,6 @@ import { WinstonModule } from 'nest-winston';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes(PublicController);
+    consumer.apply(ReqLoggerMiddleware).forRoutes('*');
   }
 }
