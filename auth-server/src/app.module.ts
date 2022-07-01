@@ -1,4 +1,4 @@
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, Logger } from '@nestjs/common';
 import { LoggerMiddleware } from './middlewares/logger.middleware';
 import { ReqLoggerMiddleware } from './middlewares/req.log.middleware';
 import { ConfigModule } from '@nestjs/config';
@@ -24,7 +24,7 @@ import { WinstonModule } from 'nest-winston';
     StockModule,
   ],
   controllers: [PublicController],
-  providers: [AppService],
+  providers: [AppService, Logger],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
