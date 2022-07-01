@@ -1,13 +1,13 @@
-/home/ubuntu/logs/pythonLogs/access/access.log
-/home/ubuntu/logs/pythonLogs/app/app.log
+/home/ubuntu/logs/pythonLogs/*.log
 {
-    su root ec2-user
+    su root ubuntu
     daily
     rotate 1
     missingok
     notifempty
     sharedscripts
     postrotate
-        killall -s SIGUSR1 gunicorn
+        pid=$(systemctl show --property MainPID --value yfinServer.service)
+        kill -s USR1 ${pid}
     endscript
 }
