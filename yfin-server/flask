@@ -6,6 +6,7 @@
     missingok
     notifempty
     sharedscripts
+    dateext
     postrotate
         pid=$(systemctl show --property MainPID --value yfinServer.service)
         kill -s USR1 ${pid}
