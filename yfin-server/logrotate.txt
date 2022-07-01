@@ -2,3 +2,19 @@ gunicorn 프로덕션으로 실행시 로그가 제대로 저장되지 않음
 gunicorn에서 제공하는 로그를 사용
 gunicorn에서는 날짜별로 로그를 저장하는 기능 없음 -> 한 파일에 계속
 logrotate를 사용 로그를 날짜별로 분리 시도 (https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=semtul79&logNo=221501251102)
+
+
+
+1. gunicorn 명령어 수정 ... service 파일 수정함(--access-logfile path --error-logfile path)
+2. daemon reload
+3. service 재시작
+4. logrotate 설정 파일 작성(flask파일)
+
+
+// 테스트 명령어
+sudo logrotate /etc/logrotate.d/flask
+
+// logrotate 상태
+// 바로 테스트 해보고 싶을시 테스트 명령어 실행후
+// 아래의 파일에서 해당하는 부분의 날짜를 수정 후 명령어 재실행
+/var/lib/logrotate/status
