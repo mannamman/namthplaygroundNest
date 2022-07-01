@@ -1,0 +1,4 @@
+gunicorn 프로덕션으로 실행시 로그가 제대로 저장되지 않음
+gunicorn에서 제공하는 로그를 사용
+gunicorn에서는 날짜별로 로그를 저장하는 기능 없음 -> 한 파일에 계속
+logrotate를 사용 로그를 날짜별로 분리 시도 (https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=semtul79&logNo=221501251102)
