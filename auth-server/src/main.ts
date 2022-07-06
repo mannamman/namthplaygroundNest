@@ -6,7 +6,7 @@ import {
 import { fastifyHelmet } from 'fastify-helmet';
 import { join } from 'path';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import fastifyCookie from 'fastify-cookie';
+import fastifyCookie from '@fastify/cookie';
 import { AppModule } from './app.module';
 import { NextFunction, Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
