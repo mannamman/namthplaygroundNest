@@ -24,7 +24,6 @@ export class UsersService {
       return { ok: true, error: '' };
     } catch (e) {
       if (e instanceof Error) {
-        this.logger.error(e.message);
         return { ok: false, error: e.message };
       }
       return { ok: false, error: 'something error' };
