@@ -10,7 +10,6 @@ import fastifyCookie from 'fastify-cookie';
 import { AppModule } from './app.module';
 import { NextFunction, Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { WinstonLoggerService } from './loggers/winston.logger';
 
 async function bootstrap() {
   let isDisableKeepAlive = false;
@@ -18,9 +17,6 @@ async function bootstrap() {
     AppModule,
     // fastify
     new FastifyAdapter(),
-    {
-      logger: new WinstonLoggerService(),
-    },
   );
   // helmet true
   await app.register(fastifyHelmet, {

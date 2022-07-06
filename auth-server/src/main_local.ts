@@ -9,16 +9,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import fastifyCookie from 'fastify-cookie';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { WinstonLoggerService } from './loggers/winston.logger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     // fastify
     new FastifyAdapter(),
-    {
-      logger: new WinstonLoggerService(),
-    },
   );
   // helmet true
   await app.register(fastifyHelmet, {

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Stock, StockDocument } from 'src/mongo/schemas/stock.schema';
@@ -13,7 +13,6 @@ import fetch from 'node-fetch';
 export class StockService {
   constructor(
     @InjectModel(Stock.name) private stockModel: Model<StockDocument>,
-    private readonly logger: Logger,
   ) {}
 
   async findLimit(limit: number): Promise<any> {

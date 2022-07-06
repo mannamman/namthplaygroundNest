@@ -10,7 +10,6 @@ import {
   Request,
   Param,
   MethodNotAllowedException,
-  Logger,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-guard/jwt-auth.guard';
@@ -27,7 +26,6 @@ import { StockDayReqDto, StockDayResDto } from './dto/stock.dto';
 export class StockController {
   constructor(
     private stockService: StockService,
-    private readonly logger: Logger,
   ) {}
 
   @Post('day')

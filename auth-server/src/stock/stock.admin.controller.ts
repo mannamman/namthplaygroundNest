@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Render, Logger } from '@nestjs/common';
+import { Controller, Get, UseGuards, Render } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-guard/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles-guard/role.guard';
@@ -13,7 +13,6 @@ import { Roles } from 'src/auth/roles-guard/roles.decorator';
 export class StockAdminController {
   constructor(
     private stockService: StockService,
-    private readonly logger: Logger,
   ) {}
 
   @Get('index')

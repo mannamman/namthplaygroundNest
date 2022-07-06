@@ -4,7 +4,6 @@ import {
   Request,
   UseGuards,
   Render,
-  Logger,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiHeader } from '@nestjs/swagger';
 import { UsersService } from './users.service';
@@ -21,7 +20,6 @@ import { Roles } from '../auth/roles-guard/roles.decorator';
 export class UsersController {
   constructor(
     private readonly userservice: UsersService,
-    private readonly logger: Logger,
   ) {}
   // @Roles('user')은 canActivate를 호출해서 실행되는 것 같음
   @Roles('user')
