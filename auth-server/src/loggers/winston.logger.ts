@@ -10,6 +10,7 @@ const { errors, combine, json, timestamp, ms, prettyPrint } = winston.format;
 // error은 발생시 새로운 파일 생성
 
 const logPath = '/home/ubuntu/logs/nestLogs';
+// const logPath = 'logs';
 
 export class WinstonLoggerService implements LoggerService {
   private logger: winston.Logger;

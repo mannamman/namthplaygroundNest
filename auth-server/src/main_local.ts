@@ -3,10 +3,10 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { fastifyHelmet } from 'fastify-helmet';
+import { fastifyHelmet } from '@fastify/helmet';
 import { join } from 'path';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import fastifyCookie from 'fastify-cookie';
+import fastifyCookie from '@fastify/cookie';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { WinstonLoggerService } from './loggers/winston.logger';
