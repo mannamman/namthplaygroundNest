@@ -65,7 +65,8 @@ export class StockService {
     const start = new Date(info.start);
     const end = new Date(info.start);
     end.setDate(end.getDate() + 31);
-    const end_str = end.toISOString().slice(0, 10).replace(/-/g, '');
+    // const end_str = end.toISOString().slice(0, 10).replace(/-/g, '');
+    const end_str = end.toISOString().slice(0, 10);
     const subject = info.subject;
     const query = {
       subject: subject,
