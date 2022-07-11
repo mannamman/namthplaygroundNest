@@ -27,14 +27,13 @@ class YFin:
         stock = subejct_mapping[subejct]
 
         stock_yf = yfinance.Ticker(stock)
-        print(f"{start=}, {end=}")
         stock_history = stock_yf.history(period=history_period, start=start, end=end)
-    
+
         close_prices = stock_history["Close"].tolist()
         # close_prices = [round(close_price, 4) for close_price in close_prices]
         close_dates = stock_history.index.tolist()
-        close_dates = [datetime.datetime.strftime(close_date, self.date_format) for close_date in close_dates]
-        
+
+        close_dates = [datetime.datetime.strftime(close_date, self.date_format) for close_date in close_dates] 
         return (close_prices, close_dates)
 
 if(__name__ == "__main__"):
