@@ -1,6 +1,7 @@
 import yfinance
 import datetime
 from typing import Tuple, List
+from log_module import Logger
 
 subejct_mapping = {
     "google" : "GOOG",
@@ -16,9 +17,10 @@ subejct_mapping = {
 history_period = "1d"
 
 class YFin:
-    def __init__(self) -> None:
+    def __init__(self, logger: Logger) -> None:
         global history_period
         self.date_format = "%Y-%m-%d"
+        self.logger = logger
 
     def get_real_stock(self, subejct: str, start: str, end: str) -> Tuple[List[float], List[str]]:
         global subejct_mapping
@@ -27,7 +29,7 @@ class YFin:
         stock = subejct_mapping[subejct]
 
         stock_yf = yfinance.Ticker(stock)
-
+        self.logger.info_log(f"{start=}, {end=}")
         stock_history = stock_yf.history(period=history_period, start=start, end=end)
     
         close_prices = stock_history["Close"].tolist()
