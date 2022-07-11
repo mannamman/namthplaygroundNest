@@ -15,7 +15,7 @@ port = int(os.getenv("FLASK_PORT"))
 app = Flask(__name__)
 
 logger = Logger()
-yfin = YFin(logger)
+yfin = YFin()
 
 @app.post('/yfin')
 def fun():
